@@ -17,8 +17,6 @@ Both models predict the velocity $(u, v)$ and pressure $p$, and are validated ag
 - [Models](#models)
 - [Ill-posed formulation](#ill-posed-formulation)
 - [Case summary](#case-summary)
-- [Main results](#main-results)
-- [Post-processing and validation](#post-processing-and-validation)
 
 ---
 
@@ -92,7 +90,7 @@ The inlet profile and Reynolds number of each case (Re from 16 to 100, all lamin
 | Network | MLP, input $(x, y)$, hidden layers $[64, 64, 64]$, output $(u, v, p)$, tanh |
 | Derivatives | Automatic differentiation |
 | Boundary conditions | Soft constraints (penalty terms in the loss) |
-| Loss | $\mathcal{L} = \mathcal{L}_{\text{BC}} + \mathcal{L}_{\text{PDE}}$ |
+| Loss | $`\mathcal{L} = \mathcal{L}_{\text{BC}} + \mathcal{L}_{\text{PDE}}`$ |
 
 ### PI-GCNN (proposed)
 
@@ -121,7 +119,7 @@ Hardware: NVIDIA A100 (40 GB). A structured mesh with 4700 nodes and 8 neighbors
 The inlet velocity profile is **not** provided. Only sparse interior velocity measurements $\{(x^{(m)}, y^{(m)}, u^{(m)}, v^{(m)})\}$ are available, and the pressure is entirely unobserved. The model must:
 
 - satisfy the Navier–Stokes equations,
-- match the measurements through a data loss, $\mathcal{L} = \mathcal{L}_{\text{PDE}} + \lambda_{\text{data}}\,\mathcal{L}_{\text{data}}$ (with $\lambda_{\text{data}} = 10$),
+- match the measurements through a data loss,
 - reconstruct the unknown inlet profile.
 
 The effects of **number of measurements** (20, 50, 100), **spatial sampling pattern** (sinusoidal, hyperbolic tangent, cross-shaped) and **noise level** (0%, 10%, 20% Gaussian) are studied on Case 2a.
@@ -196,54 +194,3 @@ The ill-posed study is performed on Case 2a.
 </p>
 
 ---
-
-## Main results
-
-### Forward problems
-
-Range-normalized $L_2$ errors (%) against CFD:
-
-| Case | $u$ PINN | $u$ PI-GCNN | $v$ PINN | $v$ PI-GCNN | $p$ PINN | $p$ PI-GCNN |
-|------|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1  | 0.92  | 0.78 | 84.36 | 105.41 | 1.81  | 0.63 |
-| 2a | 3.61  | 0.85 | 17.00 | 2.82   | 3.39  | 0.98 |
-| 2b | 65.00 | 3.93 | 65.06 | 8.57   | 80.78 | 3.63 |
-| 3  | 63.88 | 3.85 | 90.35 | 6.01   | 79.93 | 7.22 |
-| 4  | 81.74 | 3.33 | 92.49 | 3.76   | 89.50 | 4.99 |
-
-> In Case 1 the reference $v$ is nearly zero, so the range-normalized error of $v$ is not a meaningful metric for comparing the models.
-
-PI-GCNN is also about **1.5–1.7× faster per epoch** than the conventional PINN and reaches a lower minimum training loss in all cases.
-
-### Ablation study (Case 3)
-
-The full PI-GCNN reduces the error from 57.64% (graph only) to **1.88%**. Hard boundary-condition enforcement gives the largest single improvement (57.64% to 5.71%).
-
-### Ill-posed problem (Case 2a, PI-GCNN, inlet profile $L_2$ error)
-
-| Study | Setting | Error |
-|-------|---------|:---:|
-| Number of data points | 20 / 50 / 100 | 12.99% / 11.00% / 6.06% |
-| Sampling pattern (100 pts) | cross / tanh / sinusoidal | 18.55% / 21.32% / 6.06% |
-| Noise (100 pts, sinusoidal) | 20% / 10% / 0% | 19.86% / 10.34% / 6.06% |
-
-PI-GCNN also preserves the sharp kink of the inlet profile that the conventional PINN smooths out.
-
----
-
-## Post-processing and validation
-
-For every case the pipeline produces:
-
-- Velocity contours $(u, v)$ and pressure field
-- Effective viscosity distribution $\eta$
-- Relative (range-normalized) error maps and $L_2$ error norms
-- Loss histories of both models
-- For ill-posed runs: the reconstructed inlet profile at $x = 0$ against the reference
-
-Reference solutions come from CFD simulations.
-
-## Limitations
-
-- Mask-based hard enforcement works only for Dirichlet boundary conditions.
-- Graph aggregation is convolutional; attention-based aggregation is a possible extension.

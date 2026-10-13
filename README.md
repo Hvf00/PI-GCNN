@@ -148,7 +148,7 @@ The ill-posed study is performed on Case 2a.
 - **Fluid:** Synthetic (low complexity)
 
 <p align="center">
-  <img src="Main-Codes-Case-1/Input/mesh_geometry.png" alt="Mesh geometry of Case 1" width="700">
+  <img src="Case-1/Input/mesh_geometry.png" alt="Mesh geometry of Case 1" width="700">
 </p>
 
 ---
@@ -159,7 +159,7 @@ The ill-posed study is performed on Case 2a.
 - **Fluid:** Synthetic (low complexity)
 
 <p align="center">
-  <img src="Main-Codes-Case-2a/Input/mesh_geometry.png" alt="Mesh geometry of Case 2a" width="700">
+  <img src="Case-2a/Input/mesh_geometry.png" alt="Mesh geometry of Case 2a" width="700">
 </p>
 
 ---
@@ -170,7 +170,7 @@ The ill-posed study is performed on Case 2a.
 - **Fluid:** Xanthan gum 500 ppm (high complexity, strongly shear-thinning)
 
 <p align="center">
-  <img src="Main-Codes-Case-2b/Input/mesh_geometry.png" alt="Mesh geometry of Case 2b" width="700">
+  <img src="Case-2b/Input/mesh_geometry.png" alt="Mesh geometry of Case 2b" width="700">
 </p>
 
 ---
@@ -181,7 +181,7 @@ The ill-posed study is performed on Case 2a.
 - **Fluid:** Synthetic (low complexity)
 
 <p align="center">
-  <img src="Main-Codes-Case-3/Input/mesh_geometry.png" alt="Mesh geometry of Case 3" width="700">
+  <img src="Case-3/Input/mesh_geometry.png" alt="Mesh geometry of Case 3" width="700">
 </p>
 
 ---
@@ -192,7 +192,7 @@ The ill-posed study is performed on Case 2a.
 - **Fluid:** Synthetic (low complexity)
 
 <p align="center">
-  <img src="Main-Codes-Case-4/Input/mesh_geometry.png" alt="Mesh geometry of Case 4" width="700">
+  <img src="Case-4/Input/mesh_geometry.png" alt="Mesh geometry of Case 4" width="700">
 </p>
 
 ---

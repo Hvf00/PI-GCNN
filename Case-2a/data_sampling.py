@@ -97,3 +97,55 @@ def random_fixed_sampling(xy, u, v, n_samples=1000, seed=42, plot=True, save_pat
         plt.show()
     
     return indices, xy_sampled, u_sampled, v_sampled
+
+
+def cross_pattern_sampling(x_data, y_data, xy, u, v, n_samples=10000, 
+                          x_line=3.0, y_line=0.0, tolerance=0.05,
+                          plot=True, save_path="Results/plots/selected_points.png"):
+    """
+    Sample points along a cross pattern: vertical line at x=x_line and horizontal line at y=y_line
+    """
+    
+    # Find points near the vertical line (x = x_line)
+    vertical_mask = np.abs(x_data - x_line) < tolerance
+    vertical_indices = np.where(vertical_mask)[0]
+    
+    # Find points near the horizontal line (y = y_line)
+    horizontal_mask = np.abs(y_data - y_line) < tolerance
+    horizontal_indices = np.where(horizontal_mask)[0]
+    
+    # Combine indices (remove duplicates)
+    indices = np.unique(np.concatenate([vertical_indices, horizontal_indices]))
+    
+    # Subsample if too many points
+    if len(indices) > n_samples:
+        indices = np.random.choice(indices, n_samples, replace=False)
+    
+    xy_sampled = xy[indices]
+    u_sampled = u[indices]
+    v_sampled = v[indices]
+    
+    if plot:
+        plt.figure(figsize=(12, 2))
+        
+        # Plot the cross lines
+        y_range = [y_data.min(), y_data.max()]
+        x_range = [x_data.min(), x_data.max()]
+        
+        plt.plot([x_line, x_line], y_range, 'b--', linewidth=1, label=f"Vertical Line (x={x_line})")
+        plt.plot(x_range, [y_line, y_line], 'g--', linewidth=1, label=f"Horizontal Line (y={y_line})")
+        
+        # Plot selected points
+        plt.scatter(xy_sampled[:, 0], xy_sampled[:, 1], s=8, color="red", label="Selected Points", zorder=5)
+        
+        plt.xlabel("x-coordinate")
+        plt.ylabel("y-coordinate")
+        plt.title("Cross Pattern Sampling")
+        plt.xlim(0, 10)
+        plt.ylim(-0.5, 0.5)
+        plt.grid(True)
+        plt.legend(loc='lower right')
+        plt.savefig(save_path, dpi=300)
+        plt.show()
+    
+    return indices, xy_sampled, u_sampled, v_sampled

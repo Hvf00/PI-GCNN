@@ -34,46 +34,18 @@ $$
 
 ## 2.2 Momentum Equation
 
-$$
-\rho (\mathbf{u} \cdot \nabla \mathbf{u}) =
-- \nabla p + \nabla \cdot \boldsymbol{\tau}
-$$
+$$\rho (\mathbf{u} \cdot \nabla \mathbf{u}) =- \nabla p + \nabla \cdot \boldsymbol{\tau}$$
 
 ### Expanded Form
 
 **x‑momentum**
 
-$$
-\rho \left(
-u \frac{\partial u}{\partial x} +
-v \frac{\partial u}{\partial y}
-\right)
-+
-\frac{\partial p}{\partial x}
--
-\left(
-\frac{\partial \tau_{xx}}{\partial x} +
-\frac{\partial \tau_{xy}}{\partial y}
-\right)
-= 0
-$$
+$$\rho \left(u \frac{\partial u}{\partial x} +v \frac{\partial u}{\partial y}\right)+\frac{\partial p}{\partial x}-\left(\frac{\partial \tau_{xx}}{\partial x} +\frac{\partial \tau_{xy}}{\partial y}\right)= 0$$
 
 **y‑momentum**
 
 $$
-\rho \left(
-u \frac{\partial v}{\partial x} +
-v \frac{\partial v}{\partial y}
-\right)
-+
-\frac{\partial p}{\partial y}
--
-\left(
-\frac{\partial \tau_{xy}}{\partial x} +
-\frac{\partial \tau_{yy}}{\partial y}
-\right)
-= 0
-$$
+\rho \left(u \frac{\partial v}{\partial x} +v \frac{\partial v}{\partial y}\right)+\frac{\partial p}{\partial y}-\left(\frac{\partial \tau_{xy}}{\partial x} +\frac{\partial \tau_{yy}}{\partial y}\right)= 0$$
 
 ---
 
